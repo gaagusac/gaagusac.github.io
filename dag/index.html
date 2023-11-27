@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>6.1</title>
+    <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator.min.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <input type="text" value="a+b+a+c" id="data" />
+    <button id="go">Go</button>
+</div>
+<div id="graph">
+</div>
+<div id="dagtable">
+</div>
+
+
+<script src="./jquery.js"></script>
+<script src="./Dag.js"></script>
+<script src="./viz-standalone.js"></script>
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.5.2/dist/js/tabulator.min.js"></script>
+
+<script>
+
+    function makeTable(arr) {
+        let table = [];
+        arr.forEach((element, index) => {
+            table.push({});
+            table[index]['index'] = index + 1;
+            if (element.op == 'id') {
+                table[index]['label'] = "id";
+                table[index]['left'] = element.value;
+                table[index]['right'] = "";
+            } else if (element.op == 'num') {
+                table[index]['label'] = "num";
+                table[index]['left'] = element.value;
+                table[index]['right'] = "";
+            } else {
+                table[index]['label'] = element.op;
+                table[index]['left'] = element.left + 1;
+                table[index]['right'] = element.right + 1;
+            }
+        });
+        console.table(table);
+        return table;
+    }
+    function toDot(arr) {
+        let buffer = "";
+        buffer += "Digraph g {\n";
+        arr.forEach(function(element, index) {
+            switch (element.op) {
+                case 'num': {
+                    buffer += `${index} [label="${element.value}"];\n`;
+                    break;
+                }
+                case 'id': {
+                    buffer += `${index} [label="${element.value}"];\n`;
+                    break;
+                }
+                case '+': case '-': case '*': case '/': {
+                    console.log(`${index} [label="${element.op}"];`);
+                    buffer += `${index} [label="${element.op}"];\n`;
+                    buffer += `${index} -> ${element.left}\n`;
+                    buffer += `${index} -> ${element.right}\n`;
+                    break;
+                }
+                default:
+                    console.log("Should not print this!");
+                    break;
+            }
+        });
+        buffer += "}\n";
+        return buffer;
+    }
+
+    $(document).ready(function() {
+        $("#go").click(function () {
+            try {
+                $("#graph").empty();
+                $("#dagtable").empty();
+                let result = Dag.parse($("#data").val());
+                let dotStr = toDot(result);
+                let table = makeTable(result);
+                let tableElement = new Tabulator("#dagtable", {
+                    data: table,
+                    autoColumns: true,
+                    layout: "fitDataTable",
+                    headerVisible: false,
+                });
+                Viz.instance().then(function(viz) {
+                    let svg = viz.renderSVGElement(dotStr);
+                    document.getElementById("graph").appendChild(svg);
+                });
+            } catch (e) {
+                alert(String(e));
+            }
+        });
+    });
+</script>
+</body>
+</html>
