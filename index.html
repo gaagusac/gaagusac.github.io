@@ -1,20 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <title></title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-  <body>
-    <<script>
-      var today = new Date();
-      var date = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      var dateTime = date + " " + time;
-      var outputLabel = document.createElement('label');
-      outputLabel.innerHTML = dateTime;
-      document.getElementsByTagName('body')[0].appendChild(outputLabel);
-    </script> 
-  </body>
+    <head>
+        <title></title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="css/style.css" rel="stylesheet" />
+    </head>
+    <body>
+        <h1>gaagusac</h1>
+        <h2>Compilers</h2>
+        <ul>
+            <li>
+                <p>
+                    <a
+                        href="https://gaagusac.github.io/annotated-tree/"
+                        target="_blank"
+                        >Annotated trees</a
+                    >
+                    is a tool to see how synthesized and inherited attributes
+                    work in a syntax tree.
+                    <a
+                        href="https://github.com/gaagusac/annotated-tree.git"
+                        target="_blank"
+                        >source code here</a
+                    >
+                </p>
+            </li>
+            <li>
+                <p>
+                    <a href="https://gaagusac.github.io/dag/" target="_blank"
+                        >Directed Acyclic Graph</a
+                    >
+                    A simple tool to show how DAG works for basic arithmetic
+                    expressions.
+                    <a
+                        href="https://github.com/gaagusac/gaagusac.github.io.git"
+                        target="_blank"
+                        >source code here</a
+                    >
+                </p>
+            </li>
+            <li>
+                <p>
+                    <a
+                        href="https://github.com/gaagusac/jsmonkey.git"
+                        target="_blank"
+                        >JSMonkey</a
+                    >
+                    is an implementation for
+                    <a href="https://monkeylang.org/" target="_blank"
+                        >The Monkey programming language</a
+                    >
+                </p>
+            </li>
+        </ul>
+        <script>
+            var today = new Date();
+            var date =
+                today.getFullYear() +
+                "-" +
+                (today.getMonth() + 1) +
+                "-" +
+                today.getDate();
+            var time =
+                today.getHours() +
+                ":" +
+                today.getMinutes() +
+                ":" +
+                today.getSeconds();
+            var dateTime = date + " " + time;
+            var outputLabel = document.createElement("label");
+            outputLabel.innerHTML = dateTime;
+            document.getElementsByTagName("body")[0].appendChild(outputLabel);
+        </script>
+    </body>
 </html>
